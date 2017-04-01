@@ -1,0 +1,34 @@
+currency USD;
+currency PLN = 0.25 USD;
+
+var value = 12.00 PLN;
+var value2 = 3.14 * usd_value;
+var value3 = value + value2;
+
+function NazwaFunkcji(x1, x2, x3)
+{
+	return x2;
+}
+
+var i = 0;
+while (i < 10)
+{
+	value3 = 2 * value + value2;
+	i = i + 1;
+}
+
+if (i < 10)
+{
+	print(value3 as PLN);
+}
+else
+{
+	print(value2 as USD)
+}
+
+var x = NazwaFunkcji(1, 2, 3.14);
+print("Cena ");
+print(value3 as PLN);
+print(" PLN");
+
+// jako jeden print
