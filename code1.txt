@@ -1,12 +1,17 @@
-currency USD;
-currency PLN = 0.25 USD;
+currency USD, EUR, PLN;
 
-var value = 12.00 PLN;
-var value2 = 3.14 * usd_value;
-var value3 = value + value2;
+exrate PLN = 0.3 USD;	# asymetrycznie
+exrate USD = 4.2 PLN;	# asymetrycznie
+exrate EUR = 4.4 PLN;	# symetrycznie
+
+var value_usd = 100 USD;
+var value_pln = 12.00 PLN;
+var value2 = 3.14 * value_pln;			# w PLN
+var value3 = value_usd + value2 as USD;	# w USD
 
 function NazwaFunkcji(x1, x2, x3)
 {
+	x2 = x1 as PLN + x2 as PLN + x3 as PLN;
 	return x2;
 }
 
@@ -17,7 +22,7 @@ while (i < 10)
 	i = i + 1;
 }
 
-if (i < 10)
+if (value3 < 10 USD)
 {
 	print(value3 as PLN);
 }
@@ -27,8 +32,4 @@ else
 }
 
 var x = NazwaFunkcji(1, 2, 3.14);
-print("Cena ");
-print(value3 as PLN);
-print(" PLN");
-
-// jako jeden print
+print("Cena ", value3 as PLN, " PLN");
