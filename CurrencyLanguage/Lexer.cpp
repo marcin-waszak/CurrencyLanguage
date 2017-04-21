@@ -22,7 +22,7 @@ Token Lexer::GetToken() {
 	if (token = TryDoubleOperator())
 		return token;
 
-	throw "Should never reach here!";
+	throw reach_exception;
 }
 
 void Lexer::SkipWhitespace() {
@@ -61,7 +61,7 @@ Token::Type Lexer::TryIdentifier() {
 	else
 		return found->second;
 
-	throw "Should never reach here!";
+	throw reach_exception;
 }
 
 Token::Type Lexer::TrySingleOperator() {
