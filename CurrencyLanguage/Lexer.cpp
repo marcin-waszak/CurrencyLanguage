@@ -80,7 +80,7 @@ Token::Type Lexer::TryNumber() {
 		++position_;
 
 		if (position_ == input_.end())
-			break;
+			return Token::Type::END_OF_FILE;
 	}
 
 	if (*position_ == '.') {
@@ -117,7 +117,7 @@ Token::Type Lexer::TryDoubleOperator() {
 	switch (*position_) {
 	case '<':
 		++position_;
-		if (*position_ == '=') {
+		if (!TryEOF() && *position_ == '=') {
 			++position_;
 			return Token::Type::LESSEQ;
 		}
@@ -126,7 +126,7 @@ Token::Type Lexer::TryDoubleOperator() {
 
 	case '>':
 		++position_;
-		if (*position_ == '=') {
+		if (!TryEOF() && *position_ == '=') {
 			++position_;
 			return Token::Type::GREATEREQ;
 		}
@@ -135,7 +135,7 @@ Token::Type Lexer::TryDoubleOperator() {
 
 	case '=':
 		++position_;
-		if (*position_ == '=') {
+		if (!TryEOF() && *position_ == '=') {
 			++position_;
 			return Token::Type::EQUAL;
 		}
@@ -144,7 +144,7 @@ Token::Type Lexer::TryDoubleOperator() {
 
 	case '!':
 		++position_;
-		if (*position_ == '=') {
+		if (!TryEOF() && *position_ == '=') {
 			++position_;
 			return Token::Type::UNEQUAL;
 		}
