@@ -16,13 +16,19 @@ Token Lexer::GetToken() {
 	if (token = TryIdentifier())
 		return token;
 
+	if (token = TryNumber())
+		return token;
+
 	if (token = TrySingleOperator())
 		return token;
 
 	if (token = TryDoubleOperator())
 		return token;
 
-	throw reach_exception;
+	if (token = TryString())
+		return token;
+
+	throw new ReachException();
 }
 
 void Lexer::SkipWhitespace() {
@@ -61,7 +67,39 @@ Token::Type Lexer::TryIdentifier() {
 	else
 		return found->second;
 
-	throw reach_exception;
+	throw new ReachException();
+}
+
+Token::Type Lexer::TryNumber() {
+	auto start = position_;
+
+	if (!std::isdigit(*position_))
+		return Token::Type::UNKNOWN;
+
+	while (std::isdigit(*position_)) {
+		++position_;
+
+		if (position_ == input_.end())
+			break;
+	}
+
+	if (*position_ == '.') {
+		++position_;
+
+		if (!std::isdigit(*position_))
+			return Token::Type::UNKNOWN;
+
+		while (std::isdigit(*position_)) {
+			++position_;
+
+			if (position_ == input_.end())
+				break;
+		}
+	}
+
+	auto result = std::string(start, position_);
+	double number = atof(result.c_str());
+	return Token::Type::NUMBER;
 }
 
 Token::Type Lexer::TrySingleOperator() {
@@ -112,6 +150,30 @@ Token::Type Lexer::TryDoubleOperator() {
 		}
 
 		return Token::Type::INVERT;
+	}
+
+	return Token::Type::UNKNOWN;
+}
+
+Token::Type Lexer::TryString() {
+	auto start = position_;
+
+	if (*position_ != '\"')
+		return Token::Type::UNKNOWN;
+
+	++position_;
+
+	while (std::isprint(*position_)) {
+		++position_;
+
+		if (position_ == input_.end())
+			return Token::Type::END_OF_FILE;
+
+		if (*position_ == '\"') {
+			++position_;
+			auto result = std::string(start + 1, position_ - 1);
+			return Token::Type::STRING;
+		}
 	}
 
 	return Token::Type::UNKNOWN;

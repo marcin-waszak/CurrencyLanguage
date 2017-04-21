@@ -13,8 +13,10 @@ class Lexer {
 	void SkipWhitespace();
 	bool TryEOF();
 	Token::Type TryIdentifier();
+	Token::Type TryNumber();
 	Token::Type TrySingleOperator();
 	Token::Type TryDoubleOperator();
+	Token::Type TryString();
 
 public:
 	Lexer(std::string input);

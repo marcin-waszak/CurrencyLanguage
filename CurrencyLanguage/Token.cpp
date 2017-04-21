@@ -31,6 +31,7 @@ std::map<char, Token::Type> Token::short_operator_map_ = {
 };
 
 Token::Token(Token::Type type, std::string text) {
+
 }
 
 Token::Type Token::GetType() {
