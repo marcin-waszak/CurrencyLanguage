@@ -4,7 +4,6 @@
 #include <cctype>
 #include "Token.h"
 
-
 class Lexer {
 	std::string input_;
 	std::string::iterator position_;
@@ -17,7 +16,7 @@ public:
 
 	void SkipWhitespace();
 	bool TryEOF();
-	EToken TryIdentifier();
-	EToken TrySingleOperator();
-	EToken TryDoubleOperator();
+	Token::Type TryIdentifier();
+	Token::Type TrySingleOperator();
+	Token::Type TryDoubleOperator();
 };
