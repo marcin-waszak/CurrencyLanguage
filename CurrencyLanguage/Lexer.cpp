@@ -6,29 +6,35 @@ Lexer::Lexer(std::string input)
 }
 
 Token Lexer::GetToken() {
+	Token token;
+
 	SkipWhitespace();
 
-	if(TryEOF())
-		return Token(Token::Type::END_OF_FILE, "");
-
-	Token::Type token;
-
-	if (token = TryIdentifier())
+	token = TryEOF();
+	if (token.GetType())
 		return token;
 
-	if (token = TryNumber())
+	token = TryIdentifier();
+	if (token.GetType())
 		return token;
 
-	if (token = TrySingleOperator())
+	token = TryNumber();
+	if (token.GetType())
 		return token;
 
-	if (token = TryDoubleOperator())
+	token = TrySingleOperator();
+	if (token.GetType())
 		return token;
 
-	if (token = TryString())
+	token = TryDoubleOperator();
+	if (token.GetType())
 		return token;
 
-	throw new ReachException();
+	token = TryString();
+	if (token.GetType())
+		return token;
+
+	throw ReachException();
 }
 
 void Lexer::SkipWhitespace() {
@@ -36,15 +42,18 @@ void Lexer::SkipWhitespace() {
 		++position_;
 }
 
-bool Lexer::TryEOF() {
-	return position_ == input_.end();
+Token Lexer::TryEOF() {
+	if (position_ == input_.end())
+		return Token(Token::Type::END_OF_FILE);
+	else
+		return Token(Token::Type::UNKNOWN);
 }
 
-Token::Type Lexer::TryIdentifier() {
+Token Lexer::TryIdentifier() {
 	auto start = position_;
 
 	if (std::isdigit(*position_))
-		return Token::Type::UNKNOWN;
+		return Token(Token::Type::UNKNOWN);
 
 	while (std::isalnum(*position_) || *position_ == '_') {
 		++position_;
@@ -56,38 +65,36 @@ Token::Type Lexer::TryIdentifier() {
 	auto result = std::string(start, position_);
 
 	if (result.size() < 1)
-		return Token::Type::UNKNOWN;
+		return Token(Token::Type::UNKNOWN);
 
-	current_token_ = result;
-
-	auto token_map = Token::GetKeywordsMap();
-	auto found = token_map.find(result);
-	if (found == token_map.end())
-		return Token::Type::IDENTIFIER;
+	auto keywords = Token::GetKeywordsMap();
+	auto found = keywords.find(result);
+	if (found == keywords.end())
+		return Token(Token::Type::IDENTIFIER, result);
 	else
-		return found->second;
+		return Token(found->second);
 
-	throw new ReachException();
+	throw ReachException();
 }
 
-Token::Type Lexer::TryNumber() {
+Token Lexer::TryNumber() {
 	auto start = position_;
 
 	if (!std::isdigit(*position_))
-		return Token::Type::UNKNOWN;
+		return Token(Token::Type::UNKNOWN);
 
 	while (std::isdigit(*position_)) {
 		++position_;
 
 		if (position_ == input_.end())
-			return Token::Type::END_OF_FILE;
+			return Token(Token::Type::END_OF_FILE);
 	}
 
 	if (*position_ == '.') {
 		++position_;
 
 		if (!std::isdigit(*position_))
-			return Token::Type::UNKNOWN;
+			return Token(Token::Type::UNKNOWN);
 
 		while (std::isdigit(*position_)) {
 			++position_;
@@ -99,67 +106,67 @@ Token::Type Lexer::TryNumber() {
 
 	auto result = std::string(start, position_);
 	double number = atof(result.c_str());
-	return Token::Type::NUMBER;
+	return Token(Token::Type::NUMBER, number);
 }
 
-Token::Type Lexer::TrySingleOperator() {
+Token Lexer::TrySingleOperator() {
 	auto token_map = Token::GetShortOpMap();
 	auto found = token_map.find(*position_);
 	if (found != token_map.end()) {
 		++position_;
-		return found->second;
+		return Token(found->second);
 	}
 
-	return Token::Type::UNKNOWN;
+	return Token(Token::Type::UNKNOWN);
 }
 
-Token::Type Lexer::TryDoubleOperator() {
+Token Lexer::TryDoubleOperator() {
 	switch (*position_) {
 	case '<':
 		++position_;
-		if (!TryEOF() && *position_ == '=') {
+		if (position_ != input_.end() && *position_ == '=') {
 			++position_;
-			return Token::Type::LESSEQ;
+			return Token(Token::Type::LESSEQ);
 		}
 
-		return Token::Type::LESS;
+		return Token(Token::Type::LESS);
 
 	case '>':
 		++position_;
-		if (!TryEOF() && *position_ == '=') {
+		if (position_ != input_.end() && *position_ == '=') {
 			++position_;
-			return Token::Type::GREATEREQ;
+			return Token(Token::Type::GREATEREQ);
 		}
 
-		return Token::Type::GREATER;
+		return Token(Token::Type::GREATER);
 
 	case '=':
 		++position_;
-		if (!TryEOF() && *position_ == '=') {
+		if (position_ != input_.end() && *position_ == '=') {
 			++position_;
-			return Token::Type::EQUAL;
+			return Token(Token::Type::EQUAL);
 		}
 
-		return Token::Type::ASSIGN;
+		return Token(Token::Type::ASSIGN);
 
 	case '!':
 		++position_;
-		if (!TryEOF() && *position_ == '=') {
+		if (position_ != input_.end() && *position_ == '=') {
 			++position_;
-			return Token::Type::UNEQUAL;
+			return Token(Token::Type::UNEQUAL);
 		}
 
-		return Token::Type::INVERT;
+		return Token(Token::Type::INVERT);
 	}
 
-	return Token::Type::UNKNOWN;
+	return Token(Token::Type::UNKNOWN);
 }
 
-Token::Type Lexer::TryString() {
+Token Lexer::TryString() {
 	auto start = position_;
 
 	if (*position_ != '\"')
-		return Token::Type::UNKNOWN;
+		return Token(Token::Type::UNKNOWN);
 
 	++position_;
 
@@ -167,14 +174,14 @@ Token::Type Lexer::TryString() {
 		++position_;
 
 		if (position_ == input_.end())
-			return Token::Type::END_OF_FILE;
+			return Token(Token::Type::END_OF_FILE);
 
 		if (*position_ == '\"') {
 			++position_;
 			auto result = std::string(start + 1, position_ - 1);
-			return Token::Type::STRING;
+			return Token(Token::Type::STRING, result);
 		}
 	}
 
-	return Token::Type::UNKNOWN;
+	return Token(Token::Type::UNKNOWN);
 }

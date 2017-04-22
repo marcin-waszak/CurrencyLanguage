@@ -8,15 +8,14 @@
 class Lexer {
 	std::string input_;
 	std::string::iterator position_;
-	std::string current_token_;
 
 	void SkipWhitespace();
-	bool TryEOF();
-	Token::Type TryIdentifier();
-	Token::Type TryNumber();
-	Token::Type TrySingleOperator();
-	Token::Type TryDoubleOperator();
-	Token::Type TryString();
+	Token TryEOF();
+	Token TryIdentifier();
+	Token TryNumber();
+	Token TrySingleOperator();
+	Token TryDoubleOperator();
+	Token TryString();
 
 public:
 	Lexer(std::string input);

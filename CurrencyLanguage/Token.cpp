@@ -30,8 +30,37 @@ std::map<char, Token::Type> Token::short_operator_map_ = {
 	{ '/', Token::Type::DIVIDE },
 };
 
-Token::Token(Token::Type type, std::string text) {
+Token::Token()
+	: type_(Token::Type::UNKNOWN) {
 
+}
+
+Token::Token(Token::Type type)
+	: type_(type) {
+	if (type_ == Token::Type::IDENTIFIER
+		|| type_ == Token::Type::NUMBER
+		|| type_ == Token::Type::STRING)
+		throw TokenTypeException();
+}
+
+Token::Token(Token::Type type, std::string text)
+	: type_(type) {
+	switch (type_) {
+	case Token::Type::IDENTIFIER:
+		identifier_ = text;
+		return;
+	case Token::Type::STRING:
+		string_ = text;
+		return;
+	default:
+		throw TokenTypeException();
+	}
+}
+
+Token::Token(Token::Type type, double number)
+	: type_(type), number_(number) {
+	if (type_ != Token::Type::NUMBER)
+		throw TokenTypeException();
 }
 
 Token::Type Token::GetType() {

@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 
+#include "Exceptions.h"
+
 class Token {
 public:
 	enum Type {
@@ -50,14 +52,20 @@ public:
 		END_OF_FILE,
 	};
 
-	Token(Type type, std::string text = "");
+	Token();
+	Token(Type type);
+	Token(Type type, std::string text);
+	Token(Type type, double number);
 	Type GetType();
 	static const std::map<std::string, Type>& GetKeywordsMap();
 	static const std::map<char, Type>& GetShortOpMap();
 
 private:
 	Type type_;
-	std::string text_;
+	std::string identifier_;
+	std::string string_;
+	double number_;
+
 	static std::map<std::string, Type> keywords_map_;
 	static std::map<char, Type> short_operator_map_;
 };
