@@ -56,6 +56,8 @@ public:
 	Token(Type type);
 	Token(Type type, std::string text);
 	Token(Type type, double number);
+	bool operator==(const Token &rhs) const;
+	bool operator!=(const Token &rhs) const;
 	Type GetType();
 	static const std::map<std::string, Type>& GetKeywordsMap();
 	static const std::map<char, Type>& GetShortOpMap();
@@ -66,6 +68,7 @@ private:
 	std::string string_;
 	double number_;
 
+	static const double DOUBLE_EPSILON;
 	static std::map<std::string, Type> keywords_map_;
 	static std::map<char, Type> short_operator_map_;
 };
