@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Lexer\Exceptions.cpp" />
+    <ClCompile Include="Lexer\Lexer.cpp" />
+    <ClCompile Include="Lexer\TestsMain.cpp" />
+    <ClCompile Include="Lexer\Token.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lexer\Exceptions.h" />
+    <ClInclude Include="Lexer\Lexer.h" />
+    <ClInclude Include="Lexer\Token.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9B79B9BF-1B07-4419-89FE-6A91378FA59F}</ProjectGuid>
     <RootNamespace>CurrencyLanguage</RootNamespace>
@@ -124,17 +135,6 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Lexer.cpp" />
-    <ClCompile Include="TestsMain.cpp" />
-    <ClCompile Include="Exceptions.cpp" />
-    <ClCompile Include="Token.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Lexer.h" />
-    <ClInclude Include="Exceptions.h" />
-    <ClInclude Include="Token.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
