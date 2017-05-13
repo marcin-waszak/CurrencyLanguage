@@ -5,36 +5,41 @@ Lexer::Lexer(std::string input)
 
 }
 
-Token Lexer::GetToken() {
+Token Lexer::ReadToken() {
 	Token token;
 
 	SkipWhitespace();
 
 	token = TryEOF();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
 	token = TryIdentifier();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
 	token = TryNumber();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
 	token = TrySingleOperator();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
 	token = TryDoubleOperator();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
 	token = TryString();
 	if (token.GetType())
-		return token;
+		return token_ = token;
 
+	token_ = Token(Token::Type::UNKNOWN);
 	throw ReachException();
+}
+
+Token Lexer::GetToken() {
+	return token_;
 }
 
 void Lexer::SkipWhitespace() {

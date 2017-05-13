@@ -9,6 +9,8 @@ class Lexer {
 	std::string input_;
 	std::string::iterator position_;
 
+	Token token_;
+
 	void SkipWhitespace();
 	Token TryEOF();
 	Token TryIdentifier();
@@ -19,5 +21,6 @@ class Lexer {
 
 public:
 	Lexer(std::string input);
+	Token ReadToken();
 	Token GetToken();
 };

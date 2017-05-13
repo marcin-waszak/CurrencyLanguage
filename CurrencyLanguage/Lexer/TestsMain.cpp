@@ -8,7 +8,7 @@ bool CompareReference(std::vector<Token> ref_tokens, Lexer& lexer) {
 	std::vector<Token> tokens;
 
 	while (1) {
-		auto token = lexer.GetToken();
+		auto token = lexer.ReadToken();
 		tokens.push_back(token);
 
 		if (token.GetType() == Token::Type::END_OF_FILE)
