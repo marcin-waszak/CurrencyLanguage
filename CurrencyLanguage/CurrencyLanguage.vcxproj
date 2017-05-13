@@ -19,15 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Parser\AST\ConditionNode.cpp" />
     <ClCompile Include="Lexer\Exceptions.cpp" />
     <ClCompile Include="Lexer\Lexer.cpp" />
     <ClCompile Include="Lexer\TestsMain.cpp" />
     <ClCompile Include="Lexer\Token.cpp" />
+    <ClCompile Include="Parser\AST\Node.cpp" />
+    <ClCompile Include="Parser\Parser.cpp" />
+    <ClCompile Include="Parser\AST\Value.cpp" />
+    <ClCompile Include="Parser\AST\Void.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Parser\AST\ConditionNode.h" />
     <ClInclude Include="Lexer\Exceptions.h" />
     <ClInclude Include="Lexer\Lexer.h" />
     <ClInclude Include="Lexer\Token.h" />
+    <ClInclude Include="Parser\AST\Node.h" />
+    <ClInclude Include="Parser\Parser.h" />
+    <ClInclude Include="Parser\AST\Value.h" />
+    <ClInclude Include="Parser\AST\Void.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9B79B9BF-1B07-4419-89FE-6A91378FA59F}</ProjectGuid>
