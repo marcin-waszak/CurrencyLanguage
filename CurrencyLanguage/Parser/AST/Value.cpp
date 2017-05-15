@@ -16,20 +16,10 @@ ValuePtr Value::evaluate() const {
 	return shared_from_this();
 }
 
-int Value::asInt() const
+int Value::asNumber() const
 {
-	throw /*BadResultCast*/("Not an integer");
+	throw /*BadResultCast*/("Not a number");
 }
-
-const std::vector<ValuePtr>& Value::asList() const
-{
-	throw /*BadResultCast*/("Not a list");
-}
-
-//const FunctionValue& Value::asFunction() const
-//{
-//	throw /*BadResultCast*/("Not a function");
-//}
 
 bool Value::operator==(const Value& rhs) const
 {

@@ -19,21 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Parser\AST\BlockNode.cpp" />
     <ClCompile Include="Parser\AST\ConditionNode.cpp" />
     <ClCompile Include="Lexer\Exceptions.cpp" />
     <ClCompile Include="Lexer\Lexer.cpp" />
     <ClCompile Include="Lexer\TestsMain.cpp" />
     <ClCompile Include="Lexer\Token.cpp" />
+    <ClCompile Include="Parser\AST\CurrencyDeclarationNode.cpp" />
     <ClCompile Include="Parser\AST\Node.cpp" />
     <ClCompile Include="Parser\Parser.cpp" />
     <ClCompile Include="Parser\AST\Value.cpp" />
     <ClCompile Include="Parser\AST\Void.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Parser\AST\BlockNode.h" />
     <ClInclude Include="Parser\AST\ConditionNode.h" />
     <ClInclude Include="Lexer\Exceptions.h" />
     <ClInclude Include="Lexer\Lexer.h" />
     <ClInclude Include="Lexer\Token.h" />
+    <ClInclude Include="Parser\AST\CurrencyDeclarationNode.h" />
     <ClInclude Include="Parser\AST\Node.h" />
     <ClInclude Include="Parser\Parser.h" />
     <ClInclude Include="Parser\AST\Value.h" />

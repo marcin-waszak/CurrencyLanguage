@@ -16,9 +16,9 @@ ValuePtr Node::run() const {
 		//try {
 	return evaluate(/*root_scope*/);
 	//}
-	//catch (const Return::UglyHack& early_return) {
-	//	return early_return.return_value;
-	//}
+	//catch () {
+
+	//} TODO
 }
 
 } // namespace ast
