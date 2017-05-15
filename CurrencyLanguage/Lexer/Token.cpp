@@ -80,6 +80,27 @@ Token::Type Token::GetType() {
 	return type_;
 }
 
+std::string Token::GetIdentifier() {
+	if (type_ != Token::Type::IDENTIFIER)
+		throw TokenTypeException();
+
+	return identifier_;
+}
+
+std::string Token::GetString() {
+	if (type_ != Token::Type::STRING)
+		throw TokenTypeException();
+
+	return string_;
+}
+
+double Token::GetNumber() {
+	if (type_ != Token::Type::NUMBER)
+		throw TokenTypeException();
+
+	return number_;
+}
+
 const std::map<std::string, Token::Type>& Token::GetKeywordsMap() {
 	return keywords_map_;
 }

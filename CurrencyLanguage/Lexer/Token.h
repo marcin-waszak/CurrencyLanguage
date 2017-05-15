@@ -59,6 +59,10 @@ public:
 	bool operator==(const Token &rhs) const;
 	bool operator!=(const Token &rhs) const;
 	Type GetType();
+	std::string GetIdentifier();
+	std::string GetString();
+	double GetNumber();
+
 	static const std::map<std::string, Type>& GetKeywordsMap();
 	static const std::map<char, Type>& GetShortOpMap();
 
