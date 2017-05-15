@@ -1,5 +1,7 @@
 #include "ConditionNode.h"
 
+namespace ast {
+
 ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block, NodePtr&& else_block)
 	: condition_(std::move(condition)),
 	block_(std::move(block)),
@@ -10,16 +12,16 @@ ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block, NodePtr&& els
 
 ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block)
 	: ConditionNode(
-	std::move(condition),
-	std::move(block),
-	Node::make<Void>())
+		std::move(condition),
+		std::move(block),
+		Node::make<Void>())
 {
 
 }
 
 ValuePtr ConditionNode::evaluate() const
 {
-//	Scope new_scope{ scope };
+	//	Scope new_scope{ scope };
 	if (*condition_->evaluate(/*new_scope*/)) {
 		return block_->evaluate(/*new_scope*/);
 	}
@@ -27,3 +29,5 @@ ValuePtr ConditionNode::evaluate() const
 		return else_block_->evaluate(/*new_scope*/);
 	}
 }
+
+} // namespace ast

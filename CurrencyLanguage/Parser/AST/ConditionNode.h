@@ -2,6 +2,8 @@
 #include "Node.h"
 #include "Void.h"
 
+namespace ast {
+
 class ConditionNode : public Node
 {
 public:
@@ -15,3 +17,5 @@ private:
 	const NodePtr block_;
 	const NodePtr else_block_;
 };
+
+} // namespace ast

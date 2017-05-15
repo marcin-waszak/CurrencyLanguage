@@ -3,13 +3,15 @@
 #include <memory>
 #include <vector>
 
+namespace ast {
+
 class Value;
 using ValuePtr = std::shared_ptr<const Value>;
 
 class Value : public std::enable_shared_from_this<Value> {
 public:
 	enum class Type {
-//		Function,
+		//		Function,
 		Number,
 		String,
 		Void, // ??
@@ -24,7 +26,7 @@ public:
 
 	virtual int asInt() const;
 	virtual const std::vector<ValuePtr>& asList() const;
-//	virtual const FunctionValue& asFunction() const;
+	//	virtual const FunctionValue& asFunction() const;
 
 	virtual bool operator==(const Value& rhs) const;
 	virtual operator bool() const;
@@ -38,3 +40,5 @@ public:
 protected:
 	Value(Type type);
 };
+
+} // namespace ast

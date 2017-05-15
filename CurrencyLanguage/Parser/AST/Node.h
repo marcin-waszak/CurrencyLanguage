@@ -3,6 +3,8 @@
 #include <memory>
 #include "Value.h"
 
+namespace ast {
+
 class Node;
 using NodePtr = std::unique_ptr<const Node>;
 
@@ -18,3 +20,5 @@ public:
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
 };
+
+} // namespace ast
