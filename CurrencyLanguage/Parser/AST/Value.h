@@ -19,7 +19,7 @@ public:
 	virtual ~Value() { }
 
 	template <typename T, typename ...Args>
-	static ValuePtr make(Args&&... args) {
+	static ValuePtr Make(Args&&... args) {
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 

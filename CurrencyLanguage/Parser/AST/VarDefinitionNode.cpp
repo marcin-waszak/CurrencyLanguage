@@ -1,13 +1,13 @@
 #include "VarDefinitionNode.h"
 
-ast::VarDefinitionNode::VarDefinitionNode(NodePtr&& assign)
-	: assign_(std::move(assign))
-{
+namespace ast {
+	VarDefinitionNode::VarDefinitionNode(std::unique_ptr<AssignNode>&& assign)
+		: assign_(std::move(assign)) {
 
-}
+	}
 
-
-ast::VarDefinitionNode::~VarDefinitionNode()
-{
-
+	ValuePtr VarDefinitionNode::Evaluate(Scope& scope) const {
+		ValuePtr result = assign_->EvaluateValue(scope);
+		return scope.AddVariable(assign_->GetIdentifier()) = std::move(result);
+	}
 }

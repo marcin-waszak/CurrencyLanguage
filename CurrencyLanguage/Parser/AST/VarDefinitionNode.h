@@ -1,18 +1,19 @@
 #pragma once
 
 #include "Node.h"
+#include "AssignNode.h"
 
 namespace ast {
 
 class VarDefinitionNode : public Node
 {
 public:
-	VarDefinitionNode(NodePtr&& assign);
+	VarDefinitionNode(std::unique_ptr<AssignNode>&& assign);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
-	const NodePtr assign_;
+	const std::unique_ptr<const AssignNode> assign_;
 };
 
 } // namespace ast

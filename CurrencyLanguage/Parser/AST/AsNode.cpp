@@ -14,7 +14,7 @@ ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block)
 	: ConditionNode(
 		std::move(condition),
 		std::move(block),
-		Node::make<Void>())
+		Node::Make<Void>())
 {
 
 }
@@ -22,11 +22,11 @@ ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block)
 ValuePtr ConditionNode::evaluate() const
 {
 	//	Scope new_scope{ scope };
-	if (*condition_->evaluate(/*new_scope*/)) {
-		return block_->evaluate(/*new_scope*/);
+	if (*condition_->Evaluate(/*new_scope*/)) {
+		return block_->Evaluate(/*new_scope*/);
 	}
 	else {
-		return else_block_->evaluate(/*new_scope*/);
+		return else_block_->Evaluate(/*new_scope*/);
 	}
 }
 

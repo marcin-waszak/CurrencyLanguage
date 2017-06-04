@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "Value.h"
+#include "Scope.h"
 
 namespace ast {
 
@@ -12,11 +13,11 @@ class Node {
 public:
 	Node();
 	virtual ~Node();
-	virtual ValuePtr evaluate(/*Scope& scope*/) const = 0;
-	ValuePtr run() const;
+	virtual ValuePtr Evaluate(Scope& scope) const = 0;
+	ValuePtr Run() const;
 
 	template <typename T, typename ...Args>
-	static NodePtr make(Args&&... args) {
+	static NodePtr Make(Args&&... args) {
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
 };

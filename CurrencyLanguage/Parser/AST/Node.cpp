@@ -11,10 +11,10 @@ Node::~Node() {
 
 }
 
-ValuePtr Node::run() const {
+ValuePtr Node::Run() const {
 	//	Scope root_scope;
 		//try {
-	return evaluate(/*root_scope*/);
+	return Evaluate(/*root_scope*/);
 	//}
 	//catch () {
 

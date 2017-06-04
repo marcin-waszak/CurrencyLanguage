@@ -9,7 +9,7 @@ ReturnNode::ReturnNode(NodePtr&& expression)
 }
 
 ReturnNode::ReturnNode()
-	: expression_(Node::make<Void>()) {
+	: expression_(Node::Make<Void>()) {
 
 }
 
