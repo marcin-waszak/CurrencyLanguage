@@ -2,12 +2,15 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 #include "Exceptions.h"
 
+using TokenPtr = std::unique_ptr<Token>;
+
 class Token {
 public:
-	enum Type {
+	enum class Type {
 		UNKNOWN = 0,
 
 		BRACKET_OPEN,
