@@ -10,10 +10,10 @@ using ValuePtr = std::shared_ptr<const Value>;
 
 class Value : public std::enable_shared_from_this<Value> {
 public:
-	enum Type {
+	enum class Type {
 		Number,
 		String,
-		Void, // ??
+		Void,
 	};
 
 	virtual ~Value() { }
@@ -23,14 +23,14 @@ public:
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 
-	virtual int asNumber() const;
+	virtual double asNumber() const;
 
 	virtual bool operator==(const Value& rhs) const;
 	virtual operator bool() const;
 
 	ValuePtr evaluate() const;
 
-	virtual std::ostream& show(std::ostream& out) const;
+	//virtual std::ostream& show(std::ostream& out) const;
 
 	const Type type;
 

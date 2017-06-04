@@ -16,7 +16,7 @@ ValuePtr Value::evaluate() const {
 	return shared_from_this();
 }
 
-int Value::asNumber() const
+double Value::asNumber() const
 {
 	throw /*BadResultCast*/("Not a number");
 }
@@ -31,9 +31,9 @@ Value::operator bool() const
 	return true;
 }
 
-std::ostream& Value::show(std::ostream&) const
-{
-	throw /*BadResultCast*/("Not showable");
-}
+//std::ostream& Value::show(std::ostream&) const
+//{
+//	throw /*BadResultCast*/("Not showable");
+//}
 
 } // namespace ast

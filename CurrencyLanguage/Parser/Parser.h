@@ -5,10 +5,21 @@
 #include "AST/AssignNode.h"
 #include "AST/CurrencyDeclarationNode.h"
 #include "AST/ConditionNode.h"
+#include "AST/AssignNode.h"
+#include "AST/ExrateNode.h"
+#include "AST/VarDefinitionNode.h"
+#include "AST/FunctionDefinitionNode.h"
+#include "AST/CallNode.h"
+#include "AST/PrintsCallNode.h"
+#include "AST/PrintvCallNode.h"
+#include "AST/LoopNode.h"
+#include "AST/BinaryOperatorNode.h"
+#include "AST/NumberNode.h"
+#include "AST/AsNode.h"
+#include "AST/IdentifierNode.h"
 #include "../Lexer/Lexer.h"
 
-class Parser
-{
+class Parser {
 public:
 	using NodePtr = ast::NodePtr;
 	using TokenPtr = std::unique_ptr<Token>;
@@ -28,16 +39,14 @@ private:
 	NodePtr ReadVarDefinition();
 	NodePtr ReadAssign();
 	NodePtr ReadFunctionDefinition();
-	NodePtr ReadFunctionCall();
+	NodePtr ReadFunctionCall(const std::string& name);
 
 	NodePtr ReadLoop();
 	NodePtr ReadConditionional();
 
-//	NodePtr ReadPrint();
-
 	NodePtr ReadExpression();
 	NodePtr ReadOperator(
-		NodePtr(Parser::*readNextExpression)(),///////////
+		NodePtr(Parser::*readNextExpression)(),
 		const std::initializer_list<Token::Type>& operators);
 	NodePtr ReadOr();
 	NodePtr ReadAnd();
@@ -49,8 +58,8 @@ private:
 	NodePtr ReadValue();
 
 	TokenPtr CheckToken(Token::Type expected);
+	TokenPtr CheckToken(const std::initializer_list<Token::Type>& expected);
 	TokenPtr RequireToken(Token::Type expected);
-	//TokenPtr RequireToken(const std::initializer_list<Token>& expected);
 
 	Token& GetToken();
 	Token& Advance();
