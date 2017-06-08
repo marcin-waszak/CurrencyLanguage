@@ -8,13 +8,13 @@ namespace ast {
 
 class BlockNode : public Node {
 public:
-	BlockNode(std::vector<NodePtr>&& subtrees);
+	BlockNode(std::vector<NodePtr>&& statements);
 	BlockNode();
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
-	const std::vector<NodePtr> subtrees_;
+	const std::vector<NodePtr> statements_;
 };
 
 } // namespace ast

@@ -9,11 +9,11 @@ class CallNode : public Node
 public:
 	CallNode(const std::string& name, std::vector<NodePtr>&& args);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
-	const NodePtr name_;
-	const std::vector<std::string> args_;
+	const std::string name_;
+	const std::vector<NodePtr> args_;
 };
 
 } // namespace ast

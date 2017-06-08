@@ -10,7 +10,7 @@ public:
 	ConditionNode(NodePtr&& condition, NodePtr&& block, NodePtr&& else_block);
 	ConditionNode(NodePtr&& condition, NodePtr&& block);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
 	const NodePtr condition_;

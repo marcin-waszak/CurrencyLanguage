@@ -14,7 +14,7 @@ class CurrencyDeclarationNode : public Node
 public:
 	CurrencyDeclarationNode(std::vector<TokenPtr>&& currencies);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
 	std::vector<TokenPtr> currencies_;

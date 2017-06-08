@@ -7,8 +7,8 @@ IdentifierNode::IdentifierNode(const std::string& name)
 
 }
 
-ValuePtr ConditionNode::evaluate() const {
-
+ValuePtr IdentifierNode::Evaluate(Scope& scope) const {
+	return scope.Lookup(name_);
 }
 
 } // namespace ast

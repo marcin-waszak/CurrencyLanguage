@@ -19,15 +19,18 @@ ConditionNode::ConditionNode(NodePtr&& condition, NodePtr&& block)
 
 }
 
-ValuePtr ConditionNode::evaluate() const
+ValuePtr ConditionNode::Evaluate(Scope& scope) const
 {
 	//	Scope new_scope{ scope };
-	if (*condition_->Evaluate(/*new_scope*/)) {
-		return block_->Evaluate(/*new_scope*/);
-	}
-	else {
-		return else_block_->Evaluate(/*new_scope*/);
-	}
+	//if (*condition_->Evaluate(/*new_scope*/)) {
+	//	return block_->Evaluate(/*new_scope*/);
+	//}
+	//else {
+	//	return else_block_->Evaluate(/*new_scope*/);
+	//}
+
+	//return Value::Make<Void>();
+	throw 0;
 }
 
 } // namespace ast

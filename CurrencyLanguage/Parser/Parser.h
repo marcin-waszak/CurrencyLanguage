@@ -17,12 +17,16 @@
 #include "AST/NumberNode.h"
 #include "AST/AsNode.h"
 #include "AST/IdentifierNode.h"
+#include "AST/ReturnNode.h"
+#include "UnexpectedInputException.h"
 #include "../Lexer/Lexer.h"
 
 class Parser {
 public:
 	using NodePtr = ast::NodePtr;
 	using TokenPtr = std::unique_ptr<Token>;
+
+	Parser(Lexer& lexer);
 
 	NodePtr Parse();
 
@@ -64,5 +68,5 @@ private:
 	Token& GetToken();
 	Token& Advance();
 
-	Lexer lexer_;
+	Lexer& lexer_;
 };

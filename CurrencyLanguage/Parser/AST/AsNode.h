@@ -8,7 +8,7 @@ class AsNode : public Node
 public:
 	AsNode(NodePtr&& expression, const std::string currency_name);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
 	const NodePtr expression_;

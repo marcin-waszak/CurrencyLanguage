@@ -13,8 +13,8 @@ ReturnNode::ReturnNode()
 
 }
 
-ValuePtr ReturnNode::evaluate(/*Scope& scope*/) const {
-	/*throw UglyHack(expression_->evaluate(scope));*/
+ValuePtr ReturnNode::Evaluate(Scope& scope) const {
+	throw ReturnHelper(expression_->Evaluate(scope));
 }
 
 } // namespace ast

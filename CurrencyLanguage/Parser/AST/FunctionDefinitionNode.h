@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Node.h"
+#include "Void.h"
+#include "FunctionValue.h"
+#include "ReturnNode.h"
 
 namespace ast {
 
@@ -10,7 +13,8 @@ public:
 	FunctionDefinitionNode(const std::string& name,
 		std::vector<std::string>&& args, NodePtr&& block);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
+	ValuePtr Call(Scope& scope, const std::vector<ValuePtr>& arg_values) const;
 
 private:
 	const std::string name_;

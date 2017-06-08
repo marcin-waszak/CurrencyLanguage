@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Node.h"
+#include <iostream>
 
 namespace ast {
 
@@ -9,10 +10,10 @@ class PrintsCallNode : public Node
 public:
 	PrintsCallNode(const std::string& text);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
-	const NodePtr text_;
+	const std::string text_;
 };
 
 } // namespace ast

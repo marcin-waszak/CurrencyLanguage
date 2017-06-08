@@ -9,7 +9,7 @@ class ExrateNode : public Node
 public:
 	ExrateNode(NodePtr&& assign);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
 	const NodePtr assign_;

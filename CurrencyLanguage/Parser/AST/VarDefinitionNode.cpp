@@ -8,6 +8,6 @@ namespace ast {
 
 	ValuePtr VarDefinitionNode::Evaluate(Scope& scope) const {
 		ValuePtr result = assign_->EvaluateValue(scope);
-		return scope.AddVariable(assign_->GetIdentifier()) = std::move(result);
+		return scope.Add(assign_->GetIdentifier()) = std::move(result);
 	}
 }

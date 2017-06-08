@@ -7,4 +7,9 @@ namespace ast {
 
 	}
 
+	ValuePtr CurrencyDeclarationNode::Evaluate(Scope& scope) const
+	{
+		return Value::Make<Void>();
+	}
+
 } // namespace ast

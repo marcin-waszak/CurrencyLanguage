@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include "Void.h"
 
 namespace ast {
 
@@ -8,7 +9,7 @@ class LoopNode : public Node
 public:
 	LoopNode(NodePtr&& condition, NodePtr&& block);
 
-	ValuePtr evaluate(/*Scope& scope*/) const override;
+	ValuePtr Evaluate(Scope& scope) const override;
 
 private:
 	const NodePtr condition_;

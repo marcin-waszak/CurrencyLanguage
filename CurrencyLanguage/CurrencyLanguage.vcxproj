@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Parser\AST\AsNode.cpp" />
+    <ClCompile Include="Parser\AST\BinaryOperatorNode.cpp" />
+    <ClCompile Include="Parser\AST\CallNode.cpp" />
+    <ClCompile Include="Parser\AST\ExrateNode.cpp" />
+    <ClCompile Include="Parser\AST\AssignNode.cpp" />
     <ClCompile Include="Parser\AST\BlockNode.cpp" />
     <ClCompile Include="Parser\AST\ConditionNode.cpp" />
     <ClCompile Include="Lexer\Exceptions.cpp" />
@@ -26,19 +31,46 @@
     <ClCompile Include="Lexer\TestsMain.cpp" />
     <ClCompile Include="Lexer\Token.cpp" />
     <ClCompile Include="Parser\AST\CurrencyDeclarationNode.cpp" />
+    <ClCompile Include="Parser\AST\FunctionDefinitionNode.cpp" />
+    <ClCompile Include="Parser\AST\FunctionValue.cpp" />
+    <ClCompile Include="Parser\AST\IdentifierNode.cpp" />
+    <ClCompile Include="Parser\AST\LoopNode.cpp" />
     <ClCompile Include="Parser\AST\Node.cpp" />
+    <ClCompile Include="Parser\AST\NumberNode.cpp" />
+    <ClCompile Include="Parser\AST\NumberValue.cpp" />
+    <ClCompile Include="Parser\AST\PrintsCallNode.cpp" />
+    <ClCompile Include="Parser\AST\PrintvCallNode.cpp" />
+    <ClCompile Include="Parser\AST\ReturnNode.cpp" />
+    <ClCompile Include="Parser\AST\Scope.cpp" />
+    <ClCompile Include="Parser\AST\VarDefinitionNode.cpp" />
     <ClCompile Include="Parser\Parser.cpp" />
     <ClCompile Include="Parser\AST\Value.cpp" />
     <ClCompile Include="Parser\AST\Void.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Parser\AST\AsNode.h" />
+    <ClInclude Include="Parser\AST\BinaryOperatorNode.h" />
+    <ClInclude Include="Parser\AST\CallNode.h" />
+    <ClInclude Include="Parser\AST\ExrateNode.h" />
+    <ClInclude Include="Parser\AST\AssignNode.h" />
     <ClInclude Include="Parser\AST\BlockNode.h" />
     <ClInclude Include="Parser\AST\ConditionNode.h" />
     <ClInclude Include="Lexer\Exceptions.h" />
     <ClInclude Include="Lexer\Lexer.h" />
     <ClInclude Include="Lexer\Token.h" />
     <ClInclude Include="Parser\AST\CurrencyDeclarationNode.h" />
+    <ClInclude Include="Parser\AST\FunctionDefinitionNode.h" />
+    <ClInclude Include="Parser\AST\FunctionValue.h" />
+    <ClInclude Include="Parser\AST\IdentifierNode.h" />
+    <ClInclude Include="Parser\AST\LoopNode.h" />
     <ClInclude Include="Parser\AST\Node.h" />
+    <ClInclude Include="Parser\AST\NumberNode.h" />
+    <ClInclude Include="Parser\AST\NumberValue.h" />
+    <ClInclude Include="Parser\AST\PrintsCallNode.h" />
+    <ClInclude Include="Parser\AST\PrintvCallNode.h" />
+    <ClInclude Include="Parser\AST\ReturnNode.h" />
+    <ClInclude Include="Parser\AST\Scope.h" />
+    <ClInclude Include="Parser\AST\VarDefinitionNode.h" />
     <ClInclude Include="Parser\Parser.h" />
     <ClInclude Include="Parser\AST\Value.h" />
     <ClInclude Include="Parser\AST\Void.h" />
@@ -52,26 +84,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

@@ -7,8 +7,8 @@ NumberNode::NumberNode(double number, const std::string currency_name)
 
 }
 
-ValuePtr NumberNode::evaluate() const {
-
+ValuePtr NumberNode::Evaluate(Scope& scope) const {
+	return Value::Make<NumberValue>(number_); // todo
 }
 
 } // namespace ast

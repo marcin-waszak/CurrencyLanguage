@@ -7,9 +7,9 @@ Void::Void() : Value(Value::Type::Void)
 
 }
 
-ValuePtr Void::evaluate() const
+ValuePtr Void::Evaluate(Scope& scope) const
 {
-	return Value::evaluate();
+	return Value::Evaluate();
 }
 
 } // namespace ast

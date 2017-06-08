@@ -1,13 +1,18 @@
 #include "ExrateNode.h"
 
-ast::ExrateNode::ExrateNode(NodePtr&& assign)
+#include "Void.h"
+
+namespace ast {
+
+ExrateNode::ExrateNode(NodePtr&& assign)
 	: assign_(std::move(assign))
 {
 
 }
 
-
-ast::ExrateNode::~ExrateNode()
+ValuePtr ast::ExrateNode::Evaluate(Scope& scope) const
 {
+	return Value::Make<Void>();
+}
 
 }

@@ -13,7 +13,7 @@ class BinaryOperatorNode : public Node
   public:
     BinaryOperatorNode(Token::Type op, NodePtr&& lhs, NodePtr&& rhs);
 
-    ValuePtr evaluate(/*Scope& scope*/) const override;
+    ValuePtr Evaluate(Scope& scope) const override;
 
   private:
     const Token::Type op_;

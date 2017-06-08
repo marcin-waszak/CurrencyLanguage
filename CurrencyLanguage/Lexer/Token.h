@@ -6,11 +6,12 @@
 
 #include "Exceptions.h"
 
+class Token;
 using TokenPtr = std::unique_ptr<Token>;
 
 class Token {
 public:
-	enum class Type {
+	enum Type {
 		UNKNOWN = 0,
 
 		BRACKET_OPEN,

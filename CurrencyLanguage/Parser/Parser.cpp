@@ -24,7 +24,7 @@ Parser::TokenPtr Parser::RequireToken(Token::Type expected)
 	if (token)
 		return token;
 
-	throw "Unexpected input"; // TODO
+	throw UnexpectedInputException();
 }
 
 Token& Parser::GetToken() {
@@ -33,6 +33,10 @@ Token& Parser::GetToken() {
 
 Token& Parser::Advance() {
 	return lexer_.ReadToken();
+}
+
+Parser::Parser(Lexer& lexer) : lexer_(lexer) {
+
 }
 
 Parser::NodePtr Parser::Parse() {
@@ -46,7 +50,7 @@ Parser::NodePtr Parser::ReadMain() {
 	while (!CheckToken(Token::Type::END_OF_FILE))
 		statements.push_back(ReadFunctionOrStatement());
 
-	return ast::Node::make<ast::BlockNode>(statements);
+	return ast::Node::Make<ast::BlockNode>(statements);
 }
 
 Parser::NodePtr Parser::ReadFunctionOrStatement() {
@@ -62,7 +66,7 @@ Parser::NodePtr Parser::ReadStatement() {
 	if (TokenPtr identifier = CheckToken(Token::Type::IDENTIFIER)) {
 		if (CheckToken(Token::Type::ASSIGN)) {
 			NodePtr value = ReadExpression();
-			statement = ast::Node::make<ast::ExrateNode>(identifier->GetIdentifier(), std::move(value));
+			statement = ast::Node::Make<ast::ExrateNode>(identifier->GetIdentifier(), std::move(value));
 		} else {
 			RequireToken(Token::Type::PARENTHESIS_OPEN);
 			statement = ReadFunctionCall(identifier->GetIdentifier());
@@ -79,17 +83,17 @@ Parser::NodePtr Parser::ReadStatement() {
 		statement = ReadLoop();
 	} else if (CheckToken(Token::Type::RETURN)) {
 		if (CheckToken(Token::Type::SEMICOLON)) {
-			return ast::Node::make<ast::ReturnNode>();
+			return ast::Node::Make<ast::ReturnNode>();
 		} else {
 			NodePtr value = ReadExpression();
-			statement = ast::Node::make<ast::ReturnNode>(std::move(value));
+			statement = ast::Node::Make<ast::ReturnNode>(std::move(value));
 		}
 	} else if (CheckToken(Token::Type::BRACKET_CLOSE)) {
 		return nullptr;
 	} else if (CheckToken(Token::Type::END_OF_FILE)) {
 		return nullptr;
 	} else {
-		throw "Unexpected input"; // TODO
+		throw UnexpectedInputException();
 	}
 
 	RequireToken(Token::Type::SEMICOLON);
@@ -106,7 +110,7 @@ Parser::NodePtr Parser::ReadBlock() {
 		statements.push_back(ReadStatement());
 	}
 
-	return ast::Node::make<ast::BlockNode>(statements);
+	return ast::Node::Make<ast::BlockNode>(statements);
 }
 
 Parser::NodePtr Parser::ReadCurrencyDeclaration() {
@@ -117,15 +121,15 @@ Parser::NodePtr Parser::ReadCurrencyDeclaration() {
 		currency_ids.push_back(std::move(id));
 	} while (CheckToken(Token::Type::COMMA));
 
-	return ast::Node::make<ast::CurrencyDeclarationNode>(std::move(currency_ids));
+	return ast::Node::Make<ast::CurrencyDeclarationNode>(std::move(currency_ids));
 }
 
 Parser::NodePtr Parser::ReadExrate() {
-	return ast::Node::make<ast::ExrateNode>(ReadAssign());
+	return ast::Node::Make<ast::ExrateNode>(ReadAssign());
 }
 
 Parser::NodePtr Parser::ReadVarDefinition() {
-	return ast::Node::make<ast::VarDefinitionNode>(ReadAssign());
+	return ast::Node::Make<ast::VarDefinitionNode>(ReadAssign());
 }
 
 Parser::NodePtr Parser::ReadAssign() {
@@ -133,7 +137,7 @@ Parser::NodePtr Parser::ReadAssign() {
 	RequireToken(Token::Type::ASSIGN);
 	auto value = ReadExpression();
 
-	return ast::Node::make<ast::AssignNode>(id, std::move(value));
+	return ast::Node::Make<ast::AssignNode>(id, std::move(value));
 }
 
 Parser::NodePtr Parser::ReadFunctionDefinition() {
@@ -158,22 +162,22 @@ Parser::NodePtr Parser::ReadFunctionDefinition() {
 	while (!CheckToken(Token::Type::BRACKET_CLOSE))
 		statements.push_back(ReadStatement());
 
-	auto block = ast::Node::make<ast::BlockNode>(statements);
+	auto block = ast::Node::Make<ast::BlockNode>(statements);
 
-	return ast::Node::make<ast::FunctionDefinitionNode>(name, std::move(args), std::move(block));
+	return ast::Node::Make<ast::FunctionDefinitionNode>(name, std::move(args), std::move(block));
 }
 
 Parser::NodePtr Parser::ReadFunctionCall(const std::string& name) {
 	if (name == "prints") {
 		const auto string = RequireToken(Token::Type::STRING)->GetString();
 		RequireToken(Token::Type::PARENTHESIS_CLOSE);
-		return ast::Node::make<ast::PrintsCallNode>(string);
+		return ast::Node::Make<ast::PrintsCallNode>(string);
 	}
 	
 	if (name == "printv") {
 		const auto value = ReadExpression();
 		RequireToken(Token::Type::PARENTHESIS_CLOSE);
-		return ast::Node::make<ast::PrintvCallNode>(std::move(value));
+		return ast::Node::Make<ast::PrintvCallNode>(std::move(value));
 	}
 
 	std::vector<NodePtr> args;
@@ -186,7 +190,7 @@ Parser::NodePtr Parser::ReadFunctionCall(const std::string& name) {
 		RequireToken(Token::Type::PARENTHESIS_CLOSE);
 	}
 
-	return ast::Node::make<ast::CallNode>(name, std::move(args));
+	return ast::Node::Make<ast::CallNode>(name, std::move(args));
 }
 
 Parser::NodePtr Parser::ReadLoop() {
@@ -195,7 +199,7 @@ Parser::NodePtr Parser::ReadLoop() {
 	RequireToken(Token::Type::PARENTHESIS_CLOSE);
 	NodePtr block = ReadBlock();
 
-	return ast::Node::make<ast::LoopNode>(std::move(condition), std::move(block));
+	return ast::Node::Make<ast::LoopNode>(std::move(condition), std::move(block));
 }
 
 Parser::NodePtr Parser::ReadConditionional() {
@@ -206,11 +210,11 @@ Parser::NodePtr Parser::ReadConditionional() {
 	
 	if (CheckToken(Token::Type::ELSE)) {
 		NodePtr else_block = ReadBlock();
-		return ast::Node::make<ast::ConditionNode>(std::move(condition),
+		return ast::Node::Make<ast::ConditionNode>(std::move(condition),
 			std::move(block), std::move(else_block));
 	}
 
-	return ast::Node::make<ast::ConditionNode>(std::move(condition),
+	return ast::Node::Make<ast::ConditionNode>(std::move(condition),
 		std::move(block));
 }
 
@@ -220,7 +224,7 @@ Parser::NodePtr Parser::ReadOperator(NodePtr(Parser::*readNextExpression)(),
 	while (auto token = CheckToken(operators)) {
 		auto op = token->GetType();
 		NodePtr rhs = (this->*readNextExpression)();
-		lhs = ast::Node::make<ast::BinaryOperatorNode>(op, std::move(lhs), std::move(rhs));
+		lhs = ast::Node::Make<ast::BinaryOperatorNode>(op, std::move(lhs), std::move(rhs));
 	}
 
 	return lhs;
@@ -265,10 +269,10 @@ Parser::NodePtr Parser::ReadValue() {
 
 	if (auto number = CheckToken(Token::Type::NUMBER)) {
 		if(auto currency_id = CheckToken(Token::Type::IDENTIFIER))
-			return ast::Node::make<ast::NumberNode>(
+			return ast::Node::Make<ast::NumberNode>(
 				number->GetNumber(), currency_id->GetIdentifier());
 
-		return ast::Node::make<ast::NumberNode>(number->GetNumber());
+		return ast::Node::Make<ast::NumberNode>(number->GetNumber());
 	}
 	
 	if (auto identifier = CheckToken(Token::Type::IDENTIFIER)) {
@@ -278,11 +282,11 @@ Parser::NodePtr Parser::ReadValue() {
 
 		if (CheckToken(Token::Type::AS)) {
 			auto currency_id = RequireToken(Token::Type::IDENTIFIER);
-			return ast::Node::make<ast::AsNode>(
+			return ast::Node::Make<ast::AsNode>(
 				identifier->GetIdentifier(), currency_id->GetIdentifier());
 		}
 
-		return ast::Node::make<ast::IdentifierNode>(identifier->GetIdentifier());
+		return ast::Node::Make<ast::IdentifierNode>(identifier->GetIdentifier());
 	}
 
 	RequireToken(Token::Type::PARENTHESIS_OPEN);
